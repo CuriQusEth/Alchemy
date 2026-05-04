@@ -1,11 +1,14 @@
-<div align="center">
+## About Alchemist
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+**Alchemist** is a peaceful yet engaging alchemy simulation game where players experiment with mystical ingredients to discover powerful potions.
 
-  <h1>Built with AI Studio</h2>
+### Features
+- Intuitive drag & drop crafting
+- 50+ unique potion recipes
+- Real-time magical reactions
+- On-chain high score & achievement system on **Base Mainnet**
+- Full ERC-8021 Attribution + ERC-8004 Trustless Agents support
+- Beautiful particle effects and sound design
+- Daily challenges and progression system
 
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+**Play. Experiment. Master the Art of Alchemy.**
