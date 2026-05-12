@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { Potion } from './store/gameStore';
 import { motion, AnimatePresence } from 'motion/react';
 
-function MainMenu({ onStart }: { onStart: () => void }) {
+function MainMenu({ onStart }: { onStart: () => void; key?: string }) {
   return (
     <motion.div 
       exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}

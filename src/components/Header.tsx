@@ -26,7 +26,7 @@ export function Header() {
     try {
       // SIWE simple message for high score
       const message = `Alchemist Score Submission\n\nScore: ${score}\nRecipes: ${discoveredRecipes.length}\nAttribution: ${ERC8021_CONFIG.ATTRIBUTION_CODE}\nBuilder: ${ERC8021_CONFIG.BUILDER_CODE}`;
-      const signature = await signMessageAsync({ message });
+      const signature = await signMessageAsync({ account: address, message });
       console.log("SIWE Signature:", signature);
       
       setStatusText('Validating on-chain...');

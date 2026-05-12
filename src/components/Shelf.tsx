@@ -42,7 +42,8 @@ function IngredientItem({
   ingredient: Ingredient, 
   disabled: boolean,
   onDropInCauldron: () => void,
-  constraintsRef: any
+  constraintsRef: any,
+  key?: string
 }) {
 
   const handleDragEnd = (event: any, info: any) => {
