@@ -35,6 +35,28 @@
     "resource-management",
     "mcp-command-execution"
   ],
+  "skills": [
+    {
+      "name": "get_race_status",
+      "description": "Get the status of a coral race"
+    },
+    {
+      "name": "start_race",
+      "description": "Start a new coral race"
+    },
+    {
+      "name": "get_leaderboard",
+      "description": "Get the current coral ecosystem leaderboard"
+    },
+    {
+      "name": "optimize_speed",
+      "description": "Optimize coral mechanics speed"
+    },
+    {
+      "name": "get_track_info",
+      "description": "Get information about the current track"
+    }
+  ],
   "supportedChains": ["eip155:8453"],
   "active": true,
   "status": "online"
