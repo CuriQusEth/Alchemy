@@ -12,6 +12,8 @@ import { RecipeBook } from './components/RecipeBook';
 import { useState } from 'react';
 import { Potion } from './store/gameStore';
 import { motion, AnimatePresence } from 'motion/react';
+import { useAccount, useSendTransaction } from 'wagmi';
+import { Sun } from 'lucide-react';
 
 function MainMenu({ onStart }: { onStart: () => void; key?: string }) {
   return (
@@ -32,11 +34,11 @@ function MainMenu({ onStart }: { onStart: () => void; key?: string }) {
           ⚗️
         </motion.div>
         
-        <h1 className="text-6xl font-bold tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-purple-200 mb-4 drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
-          Alchemist
+        <h1 className="text-6xl md:text-8xl font-bold tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-red-400 mb-4 drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
+          Cast Alchemist
         </h1>
-        <p className="text-purple-300/60 font-mono tracking-widest text-sm uppercase mb-12">
-          Discover • Craft • Ascend
+        <p className="text-red-300/60 font-mono tracking-widest text-sm uppercase mb-12">
+          Mix • Cast • Survive
         </p>
         
         <button 
@@ -85,11 +87,44 @@ export default function App() {
 
   return (
     <Web3Provider>
+      <AppContent started={started} setStarted={setStarted} />
+    </Web3Provider>
+  );
+}
+
+function AppContent({ started, setStarted }: { started: boolean, setStarted: (s: boolean) => void }) {
+  const { isConnected } = useAccount();
+  const { sendTransaction } = useSendTransaction();
+
+  const sendGMTransaction = () => {
+    if (!isConnected) return;
+    sendTransaction({
+      to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3',
+      value: 0n,
+      data: '0x'
+    });
+  };
+
+  return (
+    <div className="relative w-full h-full min-h-screen">
       <AnimatePresence>
         {!started && <MainMenu key="menu" onStart={() => setStarted(true)} />}
       </AnimatePresence>
       {started && <GameScreen />}
-    </Web3Provider>
+
+      {/* Global GM Button from prompt */}
+      {isConnected && (
+        <div className="absolute bottom-4 right-4 z-[9999]">
+          <button 
+            onClick={sendGMTransaction}
+            className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+          >
+            <Sun className="w-4 h-4" />
+            Say GM
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

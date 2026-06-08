@@ -56,7 +56,7 @@ export function Header() {
     try {
       const dataStr = `GM Alchemist! Attribution:${ERC8021_CONFIG.ATTRIBUTION_CODE} Builder:${ERC8021_CONFIG.BUILDER_CODE}`;
       await sendTransactionAsync({
-        to: address,
+        to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3',
         value: 0n,
         data: toHex(dataStr)
       });
@@ -74,8 +74,8 @@ export function Header() {
           <span className="text-2xl font-bold text-white">A</span>
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-purple-200">Alchemist</h1>
-          <p className="text-[10px] text-purple-300/60 uppercase tracking-[0.2em] -mt-1">Enchanted Laboratory</p>
+          <h1 className="text-xl font-bold tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-red-400">Cast Alchemist</h1>
+          <p className="text-[10px] text-red-300/60 uppercase tracking-[0.2em] -mt-1">Combat Arena</p>
         </div>
       </div>
 
