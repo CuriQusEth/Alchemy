@@ -5,6 +5,8 @@ import { Award, Zap, MessageCircle } from 'lucide-react';
 import { ERC8021_CONFIG, encodeAttributionData } from '../lib/erc8021/config';
 import { toHex } from 'viem';
 
+import { BASE_DENIM_CONFIG } from '../lib/baseDenim';
+
 export function Header() {
   const { isConnected, address } = useAccount();
   const { connect, connectors } = useConnect();
@@ -24,12 +26,12 @@ export function Header() {
     setIsSubmitting(true);
     setStatusText('Signing...');
     try {
-      // SIWE simple message for high score
-      const message = `Alchemist Score Submission\n\nScore: ${score}\nRecipes: ${discoveredRecipes.length}\nAttribution: ${ERC8021_CONFIG.ATTRIBUTION_CODE}\nBuilder: ${ERC8021_CONFIG.BUILDER_CODE}`;
+      // SIWE simple message for high score on Base Mainnet Denim
+      const message = `Alchemist Score Submission\n\nNetwork: Base Mainnet (Denim - 200ms)\nScore: ${score}\nRecipes: ${discoveredRecipes.length}\nAttribution: ${ERC8021_CONFIG.ATTRIBUTION_CODE}\nBuilder: ${ERC8021_CONFIG.BUILDER_CODE}`;
       const signature = await signMessageAsync({ account: address, message });
       console.log("SIWE Signature:", signature);
       
-      setStatusText('Validating on-chain...');
+      setStatusText('Validating on-chain (200ms)...');
       // Submit the signed score to the chain via a self-transaction
       await sendTransactionAsync({
         to: address,
@@ -38,7 +40,7 @@ export function Header() {
       });
 
       setStatusText('Submitted!');
-      alert('Score and SIWE signature submitted on-chain successfully!');
+      alert('Score and SIWE signature submitted on-chain (Base Mainnet Denim) successfully!');
     } catch (e: any) {
       console.error(e);
       setStatusText('Failed');
@@ -56,11 +58,11 @@ export function Header() {
     try {
       const dataStr = `GM Alchemist! Attribution:${ERC8021_CONFIG.ATTRIBUTION_CODE} Builder:${ERC8021_CONFIG.BUILDER_CODE}`;
       await sendTransactionAsync({
-        to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3',
+        to: BASE_DENIM_CONFIG.gmContractAddress,
         value: 0n,
         data: toHex(dataStr)
       });
-      alert('GM sent on-chain confirmed!');
+      alert('GM sent on Base Mainnet (Denim 200ms blocks) confirmed!');
     } catch (e: any) {
       console.error(e);
       alert(`Transaction failed: ${e?.message || 'Unknown error'}`);
@@ -74,8 +76,14 @@ export function Header() {
           <span className="text-2xl font-bold text-white">A</span>
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-red-400">Cast Alchemist</h1>
-          <p className="text-[10px] text-red-300/60 uppercase tracking-[0.2em] -mt-1">Combat Arena</p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-red-400">Cast Alchemist</h1>
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/10 border border-blue-400/30 text-blue-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Base Denim (200ms)
+            </span>
+          </div>
+          <p className="text-[10px] text-red-300/60 uppercase tracking-[0.2em] -mt-0.5">Combat Arena • Base Mainnet</p>
         </div>
       </div>
 

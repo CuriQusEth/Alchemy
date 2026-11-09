@@ -7,6 +7,8 @@ import { ERC8021_CONFIG } from '../lib/erc8021/config';
 import { useAccount, useSendTransaction } from 'wagmi';
 import { toHex } from 'viem';
 
+import { BASE_DENIM_CONFIG } from '../lib/baseDenim';
+
 export function RecipeBook() {
   const { discoveredRecipes, potionsShelved, score } = useGameStore();
   const [isOpen, setIsOpen] = useState(false);
@@ -21,11 +23,11 @@ export function RecipeBook() {
     try {
       const dataStr = `GM Alchemist! Attribution:${ERC8021_CONFIG.ATTRIBUTION_CODE} Builder:${ERC8021_CONFIG.BUILDER_CODE}`;
       await sendTransactionAsync({
-        to: address,
+        to: BASE_DENIM_CONFIG.gmContractAddress,
         value: 0n,
         data: toHex(dataStr)
       });
-      alert('GM sent on-chain confirmed!');
+      alert('GM sent on-chain (Base Mainnet Denim 200ms) confirmed!');
     } catch (e: any) {
       console.error(e);
       alert(`Transaction failed: ${e?.message || 'Unknown error'}`);
@@ -36,7 +38,12 @@ export function RecipeBook() {
     <div className="w-full flex md:flex-col gap-4">
       {/* On-chain Stats Card */}
       <div className="backdrop-blur-lg bg-indigo-900/20 border border-indigo-500/20 rounded-3xl p-6 w-full">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-4">Web3 Lab Stats</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-300">Web3 Lab Stats</h2>
+          <span className="text-[10px] font-mono text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+            Base Denim • 200ms
+          </span>
+        </div>
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div className="bg-black/20 p-3 rounded-xl border border-white/5">
             <p className="text-[9px] text-white/40 uppercase mb-1">Score</p>
@@ -52,12 +59,23 @@ export function RecipeBook() {
           onClick={handleSayGM}
           className="w-full py-3 bg-white text-slate-900 rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-gray-200 transition-colors"
         >
-          Say GM (Simple TX)
+          Say GM (Base Mainnet)
         </button>
 
-        <p className="text-center text-[9px] text-white/30 mt-3 font-mono uppercase tracking-tighter">
-          Builder ID: {ERC8021_CONFIG.BUILDER_CODE || 'bc_wiuk1ety'}
-        </p>
+        <div className="mt-3 flex flex-col gap-1 text-[9px] text-white/40 font-mono">
+          <div className="flex justify-between">
+            <span>NETWORK</span>
+            <span className="text-indigo-300 font-semibold">Base Mainnet (8453)</span>
+          </div>
+          <div className="flex justify-between">
+            <span>UPGRADE</span>
+            <span className="text-emerald-400">Denim (200ms native blocks)</span>
+          </div>
+          <div className="flex justify-between">
+            <span>BUILDER ID</span>
+            <span>{ERC8021_CONFIG.BUILDER_CODE || 'bc_wiuk1ety'}</span>
+          </div>
+        </div>
       </div>
 
       {/* Recipe Book Preview */}

@@ -39,7 +39,10 @@ async function startServer() {
       version: "1.0.0",
       name: "Alchemy Coral MCP Endpoint",
       status: "active",
-      description: "Active MCP server for Alchemy Coral Orchestrator Agent",
+      network: "Base Mainnet (Denim - 200ms)",
+      chainId: 8453,
+      blockTimeMs: 200,
+      description: "Active MCP server for Alchemy Coral Orchestrator Agent on Base Mainnet Denim",
       capabilities: ["alchemy-mechanics", "coral-ecosystem-management", "resource-management", "multi-task-automation", "daily-operations", "mcp-command-execution"],
       timestamp: new Date().toISOString()
     });

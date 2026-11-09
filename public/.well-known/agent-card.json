@@ -58,6 +58,13 @@
     }
   ],
   "supportedChains": ["eip155:8453"],
+  "network": {
+    "name": "Base Mainnet",
+    "chainId": 8453,
+    "upgrade": "Denim",
+    "blockTimeMs": 200,
+    "consensus": "Canonical 200ms Blocks"
+  },
   "active": true,
   "status": "online"
 }
